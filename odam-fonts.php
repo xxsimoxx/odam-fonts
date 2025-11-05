@@ -13,22 +13,22 @@ if (!defined('ABSPATH')) {
 	return;
 }
 
-const ODAM_DEFAULT_OPTIONS = [
-  'body_font' => 'Alegreya+Sans',
-  'title_font' => 'Alegreya+Sans',
+const ODAM_DEFAULT_OPTIONS = array(
+  'body_font'    => 'Alegreya+Sans',
+  'title_font'   => 'Alegreya+Sans',
   'heading_font' => 'Alegreya+Sans',
-  'menu_font' => 'Alegreya+Sans',
-  'bg_color' => '#ffffff',
-];
+  'menu_font'    => 'Alegreya+Sans',
+  'bg_color'     => '#ffffff',
+);
 
 function odam_font_list() {
-	$list = [
+	$list = array(
 		'Alegreya Sans',
 		'Atkinson Hyperlegible',
 		'Atkinson Hyperlegible Next',
 		'Atkinson Hyperlegible Mono',
 		'Lexend Deca',
-	];
+	);
 	$list = apply_filters( 'odam-fonts', $list );
 	foreach ( $list as $font ) {
 		$retval[str_replace(' ', '+', $font)] = $font;
@@ -43,7 +43,6 @@ function odam_customize_register( $wp_customize ) {
 	));
 }
 add_action( 'customize_register', 'odam_customize_register' );
-
 
 function odam_customize_body_font( $wp_customize ) {
 	$wp_customize->add_setting( 'odam_theme_options[body_font]', array(
@@ -136,66 +135,62 @@ add_action( 'customize_register', 'odam_customize_background_color' );
 
 $theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS);
 
-if ( $theme_options ) {
-
-	function odam_custom_fonts() {
-		$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
-		echo '<style>';
-			if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] != '' ) {
-				echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '" } ';
-				echo 'input::-webkit-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
-				echo 'input::-moz-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ). '"; }';
-				echo 'input:-ms-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
-				echo 'input::placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
-			}
-			if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] != '' ) {
-				echo '.site-description, .entry-header h2.entry-title { font-family: "' . esc_html( urldecode( $theme_options[ 'title_font' ] ) ). '"; } ';
-			}
-			if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] != '' ) {
-				echo 'h1, h2, h3, h4, h5, h6, p.site-title { font-family: "' . esc_html( urldecode( $theme_options[ 'heading_font' ] ) ) . '" } ';
-			}
-			if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] != '' ) {
-				echo '.main-navigation .menu { font-family: "' . esc_html( urldecode( $theme_options[ 'menu_font' ] ) ) . '"; } ';
-			}
-			if ( isset( $theme_options[ 'bg_color' ] ) && $theme_options[ 'bg_color' ] != '' ) {
-				echo '.site-content-contain { background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . '; } ';
-			}
-			//
-		echo '</style>';
-	}
-	add_action( 'wp_head', 'odam_custom_fonts' );
-
-	function odam_load_fonts() {
-
-		$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
-
-		$font_families = array();
-
+function odam_custom_fonts() {
+	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
+	echo '<style>';
 		if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] != '' ) {
-			$font_families[] = urldecode( $theme_options[ 'body_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+			echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '" } ';
+			echo 'input::-webkit-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
+			echo 'input::-moz-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ). '"; }';
+			echo 'input:-ms-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
+			echo 'input::placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
 		}
-
 		if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] != '' ) {
-			$font_families[] = urldecode( $theme_options[ 'title_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+			echo '.site-description, .entry-header h2.entry-title { font-family: "' . esc_html( urldecode( $theme_options[ 'title_font' ] ) ). '"; } ';
 		}
-
 		if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] != '' ) {
-			$font_families[] = urldecode( $theme_options[ 'heading_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+			echo 'h1, h2, h3, h4, h5, h6, p.site-title { font-family: "' . esc_html( urldecode( $theme_options[ 'heading_font' ] ) ) . '" } ';
 		}
-
 		if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] != '' ) {
-			$font_families[] = urldecode( $theme_options[ 'menu_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+			echo '.main-navigation .menu { font-family: "' . esc_html( urldecode( $theme_options[ 'menu_font' ] ) ) . '"; } ';
 		}
-
-		if ( count( $font_families ) > 0 ) {
-			$query_args = array(
-				'family' => rawurlencode( implode( '|', $font_families ) ),
-				'subset' => rawurlencode( 'latin,latin-ext' ),
-			);
-			$font_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
-			wp_enqueue_style( 'odam_fonts', $font_url, array(), '1.0.0' );
+		if ( isset( $theme_options[ 'bg_color' ] ) && $theme_options[ 'bg_color' ] != '' ) {
+			echo '.site-content-contain { background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . '; } ';
 		}
-
-	}
-	add_action( 'wp_enqueue_scripts', 'odam_load_fonts' );
+	echo '</style>';
 }
+add_action( 'wp_head', 'odam_custom_fonts' );
+
+function odam_load_fonts() {
+	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
+
+	$font_families = array();
+
+	if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] != '' ) {
+		$font_families[] = urldecode( $theme_options[ 'body_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+	}
+
+	if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] != '' ) {
+		$font_families[] = urldecode( $theme_options[ 'title_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+	}
+
+	if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] != '' ) {
+		$font_families[] = urldecode( $theme_options[ 'heading_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+	}
+
+	if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] != '' ) {
+		$font_families[] = urldecode( $theme_options[ 'menu_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
+	}
+
+	if ( count( $font_families ) > 0 ) {
+		$query_args = array(
+			'family' => rawurlencode( implode( '|', $font_families ) ),
+			'subset' => rawurlencode( 'latin,latin-ext' ),
+		);
+		$font_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
+		wp_enqueue_style( 'odam_fonts', $font_url, array(), '1.0.0' );
+	}
+
+}
+add_action( 'wp_enqueue_scripts', 'odam_load_fonts' );
+
