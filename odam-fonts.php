@@ -9,10 +9,6 @@
  * Requires PHP: 8.0
  */
 
-class FontLister {
-	static $font_arr = array();
-}
-
 const ODAM_DEFAULT_OPTIONS = [
   'body_font' => 'Alegreya+Sans',
   'title_font' => 'Alegreya+Sans',
@@ -21,20 +17,20 @@ const ODAM_DEFAULT_OPTIONS = [
   'bg_color' => '#ffffff',
 ];
 
-$list = [
-	'Alegreya Sans',
-	'Atkinson Hyperlegible',
-	'Atkinson Hyperlegible Next',
-	'Atkinson Hyperlegible Mono',
-	'Lexend Deca',
-];
-
-$list = apply_filters( 'odam-fonts', $list );
-
-foreach ( $list as $font ) {
-	FontLister::$font_arr[str_replace(' ', '+', $font)] = $font;
+function odam_font_list() {
+	$list = [
+		'Alegreya Sans',
+		'Atkinson Hyperlegible',
+		'Atkinson Hyperlegible Next',
+		'Atkinson Hyperlegible Mono',
+		'Lexend Deca',
+	];
+	$list = apply_filters( 'odam-fonts', $list );
+	foreach ( $list as $font ) {
+		$retval[str_replace(' ', '+', $font)] = $font;
+	}
+	return $retval;
 }
-
 
 function odam_customize_register( $wp_customize ) {
 	$wp_customize->add_section( 'odam_section' , array(
@@ -58,7 +54,7 @@ function odam_customize_body_font( $wp_customize ) {
 		'settings'  => 'odam_theme_options[body_font]',
 		'priority'  => 10,
 		'type'      => 'select',
-		'choices'   => FontLister::$font_arr
+		'choices'   => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_body_font' );
@@ -76,7 +72,7 @@ function odam_customize_title_font( $wp_customize ) {
 		'settings'  => 'odam_theme_options[title_font]',
 		'priority'  => 20,
 		'type'      => 'select',
-		'choices'   => FontLister::$font_arr
+		'choices'   => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_title_font' );
@@ -94,7 +90,7 @@ function odam_customize_heading_font( $wp_customize ) {
 		'settings'  => 'odam_theme_options[heading_font]',
 		'priority'  => 20,
 		'type'      => 'select',
-		'choices'   => FontLister::$font_arr
+		'choices'   => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_heading_font' );
@@ -112,7 +108,7 @@ function odam_customize_heading_menu_font( $wp_customize ) {
 		'settings'  => 'odam_theme_options[menu_font]',
 		'priority'  => 30,
 		'type'      => 'select',
-		'choices'   => FontLister::$font_arr
+		'choices'   => odam_font_list(),
 	));
 }
 add_action( 'customize_register', 'odam_customize_heading_menu_font' );
