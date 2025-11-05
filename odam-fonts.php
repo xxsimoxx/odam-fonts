@@ -3,7 +3,7 @@
 /**
  * Plugin Name: ODAM fonts and colors
  * Description: Adds legible fonts and background color selector to TwentySeventeen.
- * Version: 1.0.0
+ * Version: 0.0.1
  * Author: Simone Fioravanti
  * Requires CP: 2.5
  * Requires PHP: 8.0
@@ -132,8 +132,6 @@ function odam_customize_background_color( $wp_customize ) {
 		)));
 }
 add_action( 'customize_register', 'odam_customize_background_color' );
-
-$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS);
 
 function odam_custom_fonts() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
