@@ -6,7 +6,7 @@
  * Version: 0.0.1
  * Author: Simone Fioravanti
  * Requires CP: 2.5
- * Requires PHP: 8.0
+ * Requires PHP: 7.4
  */
 
 if (!defined('ABSPATH')) {
@@ -136,23 +136,23 @@ add_action( 'customize_register', 'odam_customize_background_color' );
 function odam_custom_fonts() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
 	echo '<style>';
-		if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] != '' ) {
+		if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] !== '' ) {
 			echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '" } ';
 			echo 'input::-webkit-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
 			echo 'input::-moz-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ). '"; }';
 			echo 'input:-ms-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
 			echo 'input::placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
 		}
-		if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] != '' ) {
+		if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] !== '' ) {
 			echo '.site-description, .entry-header h2.entry-title { font-family: "' . esc_html( urldecode( $theme_options[ 'title_font' ] ) ). '"; } ';
 		}
-		if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] != '' ) {
+		if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] !== '' ) {
 			echo 'h1, h2, h3, h4, h5, h6, p.site-title { font-family: "' . esc_html( urldecode( $theme_options[ 'heading_font' ] ) ) . '" } ';
 		}
-		if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] != '' ) {
+		if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] !== '' ) {
 			echo '.main-navigation .menu { font-family: "' . esc_html( urldecode( $theme_options[ 'menu_font' ] ) ) . '"; } ';
 		}
-		if ( isset( $theme_options[ 'bg_color' ] ) && $theme_options[ 'bg_color' ] != '' ) {
+		if ( isset( $theme_options[ 'bg_color' ] ) && $theme_options[ 'bg_color' ] !== '' ) {
 			echo '.site-content-contain { background-color: ' . esc_html( urldecode( $theme_options[ 'bg_color' ] ) ) . '; } ';
 		}
 	echo '</style>';
@@ -164,19 +164,19 @@ function odam_load_fonts() {
 
 	$font_families = array();
 
-	if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] != '' ) {
+	if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] !== '' ) {
 		$font_families[] = urldecode( $theme_options[ 'body_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
 	}
 
-	if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] != '' ) {
+	if ( isset( $theme_options[ 'title_font' ] ) && $theme_options[ 'title_font' ] !== '' ) {
 		$font_families[] = urldecode( $theme_options[ 'title_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
 	}
 
-	if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] != '' ) {
+	if ( isset( $theme_options[ 'heading_font' ] ) && $theme_options[ 'heading_font' ] !== '' ) {
 		$font_families[] = urldecode( $theme_options[ 'heading_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
 	}
 
-	if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] != '' ) {
+	if ( isset( $theme_options[ 'menu_font' ] ) && $theme_options[ 'menu_font' ] !== '' ) {
 		$font_families[] = urldecode( $theme_options[ 'menu_font' ] ) . ':100,200,300,400,500,600,700,800,900,100italic,200italic,300italic,400italic,500italic,600italic,700italic,800italic,900italic';
 	}
 
