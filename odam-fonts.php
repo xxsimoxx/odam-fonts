@@ -29,6 +29,8 @@ $list = [
 	'Lexend Deca',
 ];
 
+$list = apply_filters( 'odam-fonts', $list );
+
 foreach ( $list as $font ) {
 	FontLister::$font_arr[str_replace(' ', '+', $font)] = $font;
 }
