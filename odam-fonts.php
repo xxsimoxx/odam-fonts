@@ -9,6 +9,10 @@
  * Requires PHP: 8.0
  */
 
+if (!defined('ABSPATH')) {
+	return;
+}
+
 const ODAM_DEFAULT_OPTIONS = [
   'body_font' => 'Alegreya+Sans',
   'title_font' => 'Alegreya+Sans',
