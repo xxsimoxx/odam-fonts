@@ -14,12 +14,12 @@ if (!defined('ABSPATH')) {
 }
 
 const ODAM_DEFAULT_OPTIONS = array(
-  'body_font'    => 'Alegreya+Sans',
-  'title_font'   => 'Alegreya+Sans',
-  'heading_font' => 'Alegreya+Sans',
-  'menu_font'    => 'Alegreya+Sans',
-  'bg_color'     => '#ffffff',
-  'font_size'    => '16px',
+	'body_font'    => 'Alegreya+Sans',
+	'title_font'   => 'Alegreya+Sans',
+	'heading_font' => 'Alegreya+Sans',
+	'menu_font'    => 'Alegreya+Sans',
+	'bg_color'     => '#ffffff',
+	'font_size'    => '16px',
 );
 
 function odam_font_list() {
@@ -39,8 +39,9 @@ function odam_font_list() {
 
 function odam_customize_register( $wp_customize ) {
 	$wp_customize->add_section( 'odam_section' , array(
-		'title'      => esc_html__( 'ODAM', 'odam-fonts' ),
-		'priority'   => 1000,
+		'title'       => esc_html__( 'ODAM', 'odam-fonts' ),
+		'priority'    => 1000,
+		'description' => esc_html__( 'Adds legible fonts and background color selector to TwentySeventeen.', 'odam-fonts' ),
 	));
 }
 add_action( 'customize_register', 'odam_customize_register' );
@@ -158,6 +159,9 @@ function odam_customize_global_font_size( $wp_customize ) {
 }
 add_action( 'customize_register', 'odam_customize_global_font_size' );
 
+
+
+
 function odam_custom_fonts() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
 	echo '<style>';
@@ -216,7 +220,6 @@ function odam_load_fonts() {
 		$font_url = add_query_arg( $query_args, 'https://fonts.googleapis.com/css' );
 		wp_enqueue_style( 'odam_fonts', $font_url, array(), '1.0.0' );
 	}
-
 }
 add_action( 'wp_enqueue_scripts', 'odam_load_fonts' );
 
