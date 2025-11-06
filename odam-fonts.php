@@ -19,6 +19,7 @@ const ODAM_DEFAULT_OPTIONS = array(
   'heading_font' => 'Alegreya+Sans',
   'menu_font'    => 'Alegreya+Sans',
   'bg_color'     => '#ffffff',
+  'font_size'    => '16px',
 );
 
 function odam_font_list() {
@@ -133,9 +134,36 @@ function odam_customize_background_color( $wp_customize ) {
 }
 add_action( 'customize_register', 'odam_customize_background_color' );
 
+function odam_customize_global_font_size( $wp_customize ) {
+	$wp_customize->add_setting( 'odam_theme_options[font_size]', array(
+		'type'              => 'option',
+		'capability'        => 'edit_theme_options',
+		'sanitize_callback' => 'sanitize_text_field',
+		'default'           => ODAM_DEFAULT_OPTIONS['font_size'],
+	));
+	$wp_customize->add_control( 'font_size', array(
+		'label'     => esc_html__( 'Global font size', 'odam-fonts' ),
+		'section'   => 'odam_section',
+		'settings'  => 'odam_theme_options[font_size]',
+		'priority'  => 30,
+		'type'      => 'select',
+		'choices'   => array(
+			'16px' => '100%',
+			'20px' => '125%',
+			'24px' => '150%',
+			'28px' => '175%',
+			'32px' => '200%',
+		),
+	));
+}
+add_action( 'customize_register', 'odam_customize_global_font_size' );
+
 function odam_custom_fonts() {
 	$theme_options = get_option( 'odam_theme_options', ODAM_DEFAULT_OPTIONS );
 	echo '<style>';
+		if ( isset( $theme_options[ 'font_size' ] ) && $theme_options[ 'font_size' ] !== '' ) {
+			echo 'html { font-size: ' . esc_html($theme_options[ 'font_size' ]) .' }';
+		}
 		if ( isset( $theme_options[ 'body_font' ] ) && $theme_options[ 'body_font' ] !== '' ) {
 			echo 'body, button, input, select, textarea { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '" } ';
 			echo 'input::-webkit-input-placeholder { font-family: "' . esc_html( urldecode( $theme_options[ 'body_font' ] ) ) . '"; } ';
