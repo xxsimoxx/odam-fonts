@@ -37,11 +37,33 @@ function odam_font_list() {
 	return $retval;
 }
 
+function odam_supported_theme_nag() {
+	$compatible = array(
+		'ClassicPress TwentySeventeen',
+		'TwentySeventeen'
+	);
+	$theme = wp_get_theme()->get('Name');
+	if( in_array( $theme, $compatible ) ) {
+		return '';
+	}
+	// Translators: %s: theme name.
+	$message = sprintf(
+		esc_html__( 'ODAM Legible 2017 does not support "%s" theme, so check that changes in this menu are working.', 'odam-fonts' ),
+		$theme
+	);
+	return $message;
+}
+
 function odam_customize_register( $wp_customize ) {
+	$description = esc_html__( 'Adds legible fonts and background color selector to TwentySeventeen.', 'odam-fonts' );
+	$nag = odam_supported_theme_nag();
+	if ($nag !== '') {
+		$description .= '<br><strong>'.$nag.'</strong>';
+	}
 	$wp_customize->add_section( 'odam_section' , array(
 		'title'       => esc_html__( 'Legible', 'odam-fonts' ),
 		'priority'    => 1000,
-		'description' => esc_html__( 'Adds legible fonts and background color selector to TwentySeventeen.', 'odam-fonts' ),
+		'description' => $description,
 	));
 }
 add_action( 'customize_register', 'odam_customize_register' );
